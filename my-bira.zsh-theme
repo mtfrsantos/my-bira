@@ -11,15 +11,17 @@ local venv_prompt='$(virtualenv_prompt_info)'
 
 prompt_nix_shell() {
     if [[ -n "$IN_NIX_SHELL" ]]; then
-        if [[ -n $NIX_SHELL_PACKAGES ]]; then
+        if [[ -n $name ]]; then
+            echo -n "%{$fg[magenta]%} [$name] %{$reset_color%}"
+        elif [[ -n $NIX_SHELL_PACKAGES ]]; then
             local package_names=""
             local packages=($NIX_SHELL_PACKAGES)
             for package in $packages; do
                 package_names+=" ${package##*.}"
             done
-            echo -n "%{$fg[magenta]%}[nix-shell:$package_names]%{$reset_color%}"
+            echo -n "%{$fg[magenta]%} [$package_names] %{$reset_color%}"
         else
-            echo -n "%{$fg[magenta]%}[nix-shell]%{$reset_color%}"
+            echo -n "%{$fg[magenta]%} [nix-shell] %{$reset_color%}"
         fi
     fi
 }
@@ -27,7 +29,7 @@ local nix_shell='$(prompt_nix_shell)'
 
 ZSH_THEME_RVM_PROMPT_OPTIONS="i v g"
 
-PROMPT="${first_line_semi_square}${user_host}${current_dir}${nix_shell}${rvm_ruby}${vcs_branch}${venv_prompt}
+PROMPT="${first_line_semi_square}${user_host}${current_dir}${rvm_ruby}${vcs_branch}${nix_shell}${venv_prompt}
 ${second_line_semi_square}%B${user_symbol}%b "
 RPROMPT="%B${return_code}%b"
 
