@@ -17,9 +17,9 @@ prompt_nix_shell() {
             for package in $packages; do
                 package_names+=" ${package##*.}"
             done
-            echo -n "%{$fg[green]%}[nix-shell:$package_names]%{$reset_color%}"
+            echo -n "%{$fg[magenta]%}[nix-shell:$package_names]%{$reset_color%}"
         else
-            echo -n "%{$fg[green]%}[nix-shell]%{$reset_color%}"
+            echo -n "%{$fg[magenta]%}[nix-shell]%{$reset_color%}"
         fi
     fi
 }
