@@ -11,17 +11,17 @@ local venv_prompt='$(virtualenv_prompt_info)'
 
 prompt_nix_shell() {
     if [[ -n "$IN_NIX_SHELL" ]]; then
-        if [[ -n $name ]]; then
-            echo -n "%{$fg[magenta]%} [$name] %{$reset_color%}"
+        if [[ $name != "shell" ]]; then
+            echo -n "%{$fg[magenta]%}[$name] %{$reset_color%}"
         elif [[ -n $NIX_SHELL_PACKAGES ]]; then
             local package_names=""
             local packages=($NIX_SHELL_PACKAGES)
             for package in $packages; do
                 package_names+=" ${package##*.}"
             done
-            echo -n "%{$fg[magenta]%} [$package_names] %{$reset_color%}"
+            echo -n "%{$fg[magenta]%}[$package_names] %{$reset_color%}"
         else
-            echo -n "%{$fg[magenta]%} [nix-shell] %{$reset_color%}"
+            echo -n "%{$fg[magenta]%}[nix-shell] %{$reset_color%}"
         fi
     fi
 }
